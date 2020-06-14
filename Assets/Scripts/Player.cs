@@ -37,10 +37,21 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.name.Contains("enemie"))
+        {
+            Debug.Log("YES");
+            Ennemy.Speed = Ennemy.Speed * 2;
+        }
         if (collision.gameObject && !collision.gameObject.name.Contains("Enemie"))
         {
             canJump = true;
+
         }
+      
+
+
+
+
     }
 
     private void OnCollisionExit(Collision collision)
@@ -48,7 +59,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject && !collision.gameObject.name.Contains("Enemie"))
         {
             canJump = false;
+        
         }
+     
 
     }
 
@@ -61,7 +74,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
 
-
+       // if (!GameManager.IsPlaying) return;
 
         float moveHorizontal = Input.GetAxis("Horizontal");
         Debug.Log("MoveHorizentale: " + moveHorizontal);
