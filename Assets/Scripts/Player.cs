@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
+        
         if (collision.gameObject.name.Contains("enemie"))
         {
             Debug.Log("YES");
@@ -73,8 +75,11 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log("Play");
+        if (!GameManager.Instance.IsPlaying) return;
+        // if (!GameManager.IsPlaying) return;
 
-       // if (!GameManager.IsPlaying) return;
+        // if (!GameManager.IsPlaying) return;
 
         float moveHorizontal = Input.GetAxis("Horizontal");
         Debug.Log("MoveHorizentale: " + moveHorizontal);

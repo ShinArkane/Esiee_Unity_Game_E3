@@ -45,6 +45,9 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Play");
+        if (!GameManager.Instance.IsPlaying) return;
+        //if (!GameManager.IsPlaying) return;
         //if (!GameManager.IsPlaying) return;
         transform.Translate(translationVect, Space.Self);
        
