@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_yannis : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Tooltip("Vitesse de translation en m.s-1")]
     [SerializeField] float m_TranslationSpeed;
     [SerializeField] float m_UpRightRotKLerp;
     [SerializeField] float m_JumpSpeed;
+    static int cpt = 0;
 
     Rigidbody m_Rigidbody;
-    bool canJump=false;
+    bool canJump = false;
 
     // [SerializeField] float m_UpRightRotKLerp;
 
@@ -38,18 +39,25 @@ public class Player_yannis : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        
+
         if (collision.gameObject.name.Contains("enemie"))
         {
+
             Debug.Log("YES");
-            Ennemy_yannis.Speed = Ennemy_yannis.Speed * 2;
+			// compteur pour que l'ennemie augmente sa vitesse qu'une seule fois
+            if (cpt == 0)
+            {
+                Ennemy.Speed *= Ennemy.Acceleration;
+            }
+
+            cpt++;
         }
         if (collision.gameObject && !collision.gameObject.name.Contains("Enemie"))
         {
             canJump = true;
 
         }
-      
+
 
 
 
@@ -61,9 +69,9 @@ public class Player_yannis : MonoBehaviour
         if (collision.gameObject && !collision.gameObject.name.Contains("Enemie"))
         {
             canJump = false;
-        
+
         }
-     
+
 
     }
 
@@ -86,17 +94,18 @@ public class Player_yannis : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 translationVect = moveHorizontal * transform.forward * m_TranslationSpeed * Time.fixedDeltaTime;
- 
 
-        if (Input.GetKey("up")&&isGrounded())
+
+        if (Input.GetKey("up") && isGrounded())
         {
-            translationVect.y = m_JumpSpeed * Time.fixedDeltaTime;
+            //translationVect.y = m_JumpSpeed * Time.fixedDeltaTime;
+            m_Rigidbody.AddForce(new Vector3(0, m_JumpSpeed, 0), ForceMode.Impulse);
         }
         m_Rigidbody.MovePosition(transform.position + translationVect);
         Quaternion qUpright = Quaternion.FromToRotation(transform.up, Vector3.up);
-        
+
         Quaternion qNextOrientation = Quaternion.Lerp(transform.rotation, qUpright * transform.rotation, m_UpRightRotKLerp * Time.fixedDeltaTime);
-      //  m_Rigidbody.MovePosition(transform.position + translationVect);
+        //  m_Rigidbody.MovePosition(transform.position + translationVect);
         m_Rigidbody.MoveRotation(qNextOrientation);
         // rb.AddForce(movement * m_TranslationSpeed);
 
