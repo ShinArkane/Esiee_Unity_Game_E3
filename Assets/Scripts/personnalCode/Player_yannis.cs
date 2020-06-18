@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player_yannis : MonoBehaviour
 {
     [Tooltip("Vitesse de translation en m.s-1")]
     [SerializeField] float m_TranslationSpeed;
