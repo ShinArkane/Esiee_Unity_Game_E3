@@ -9,11 +9,11 @@ public class Ennemy : MonoBehaviour
 
     [Tooltip("Vitesse de translation en m.s-1")]
 
-    [SerializeField] float m_TranslationSpeed;
-    [SerializeField] float m_AccelerationSpeed;
-    [SerializeField] float m_RotationSpeed;
+    [SerializeField] private float m_TranslationSpeed;
+    [SerializeField] private float m_AccelerationSpeed;
+    [SerializeField] private float m_RotationSpeed;
     Rigidbody m_Rigidbody;
-    [SerializeField] float m_UpRightRotKLerp;
+    [SerializeField] private float m_UpRightRotKLerp;
     static float speed;
     static float acceleration;
 
@@ -58,9 +58,13 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Play");
-        if (!GameManager.Instance.IsPlaying) return;
-        transform.Translate(translationVect, Space.Self);
+
+        /* if (!GameManager.Instance.IsPlaying)
+         {
+             Debug.Log("Play");
+             return;
+         }*/
+        transform.Translate(-translationVect, Space.Self);
 
         m_Rigidbody.MovePosition(transform.position + translationVect);
         //float deltaAngle =  m_RotationSpeed * Time.deltaTime;
