@@ -66,7 +66,7 @@ public class Player_yannis : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject && !collision.gameObject.name.Contains("Enemie"))
+        if (collision.gameObject && !collision.gameObject.name.Contains("Enemy"))
         {
             canJump = false;
 
