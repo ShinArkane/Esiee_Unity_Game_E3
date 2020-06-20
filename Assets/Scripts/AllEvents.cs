@@ -10,15 +10,23 @@ public class GameMenuEvent : SDD.Events.Event
 public class GamePlayEvent : SDD.Events.Event
 {
 }
+
 public class GamePauseEvent : SDD.Events.Event
 {
 }
+
 public class GameResumeEvent : SDD.Events.Event
 {
 }
+
 public class GameOverEvent : SDD.Events.Event
 {
 }
+
+public class LaunchLevel1Event : SDD.Events.Event 
+{
+}
+
 public class GameVictoryEvent : SDD.Events.Event
 {
 }
@@ -38,6 +46,11 @@ public class EscapeButtonClickedEvent : SDD.Events.Event
 public class PlayButtonClickedEvent : SDD.Events.Event
 {
 }
+
+public class PlayLevel1ButtonClickedEvent : SDD.Events.Event 
+{ 
+}
+
 public class ResumeButtonClickedEvent : SDD.Events.Event
 {
 }

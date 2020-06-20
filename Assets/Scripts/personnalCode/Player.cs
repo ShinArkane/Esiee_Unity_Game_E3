@@ -10,8 +10,10 @@ public class Player : MonoBehaviour
     [SerializeField] float m_UpRightRotKLerp; // maintenir debut
     [SerializeField] float m_JumpPower; // force de saut
 
+    [SerializeField] bool canJump = false;
+
     Rigidbody m_Rigidbody;
-    bool canJump = false;
+    
 
     private void Awake()
     {
@@ -40,14 +42,13 @@ public class Player : MonoBehaviour
     {
         
         if (!GameManager.Instance.IsPlaying) return;
-        Debug.Log("play");
 
         //recuperation de l'imput lier a l'axes horizontal
         float hInput = Input.GetAxis("Horizontal");
 
         Vector3 translationVect = hInput * transform.forward * m_TranslationSpeed * Time.fixedDeltaTime;
 
-        if (Input.GetKey("up") && isGrounded())
+        if (Input.GetAxis("Jump") != 0 && isGrounded())
         {
             m_Rigidbody.AddForce(new Vector3(0, m_JumpPower, 0), ForceMode.Impulse);
         }
@@ -66,10 +67,15 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.GetComponent<Ground>()) canJump = true;
+    }
 
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
         // TODO A CHANGER 
         CubeBehaviour cube = collision.collider.GetComponent<CubeBehaviour>();
         if (cube)

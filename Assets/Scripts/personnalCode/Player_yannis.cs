@@ -48,7 +48,7 @@ public class Player_yannis : MonoBehaviour
 			// compteur pour que l'ennemie augmente sa vitesse qu'une seule fois
             if (cpt == 0)
             {
-                Ennemy_partrouille.Speed *= Ennemy_partrouille.Acceleration;
+                //Ennemy_partrouille.Speed *= Ennemy_partrouille.Acceleration;
             }
 
             cpt++;
