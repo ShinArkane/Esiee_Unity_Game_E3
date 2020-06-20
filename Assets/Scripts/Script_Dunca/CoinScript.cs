@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using STUDENT_NAME;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class CoinScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.IsPlaying) return;
         transform.Rotate(0,0,90 * Time.deltaTime);
     }
     private void OnTriggerEnter(Collider other)

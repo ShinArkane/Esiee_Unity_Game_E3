@@ -1,4 +1,5 @@
-﻿using System;
+﻿using STUDENT_NAME;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -32,6 +33,7 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.IsPlaying) return;
         if (transform.position != currentTarget)
         {
             MovePlateform();
