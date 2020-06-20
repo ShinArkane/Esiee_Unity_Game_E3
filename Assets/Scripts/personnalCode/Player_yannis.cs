@@ -21,6 +21,7 @@ public class Player_yannis : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
 
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +48,7 @@ public class Player_yannis : MonoBehaviour
 			// compteur pour que l'ennemie augmente sa vitesse qu'une seule fois
             if (cpt == 0)
             {
-                Ennemy.Speed *= Ennemy.Acceleration;
+                Ennemy_partrouille.Speed *= Ennemy_partrouille.Acceleration;
             }
 
             cpt++;

@@ -219,11 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
-  indicatorOffset: 1
-  indicatorPressedOffset: 0.85
-  maxTetherDistance: 100
-  connectSound: {fileID: 5374612252810892885}
-  releaseSound: {fileID: 5711485097010564901}
+  m_JumpSpeed: 0
   points: 0
 --- !u!54 &2069713374948211650
 Rigidbody:
@@ -539,8 +535,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 890744866517348351}
-  - component: {fileID: 2983133692202641330}
   - component: {fileID: 6806339682910963405}
+  - component: {fileID: 1252246655785240812}
   - component: {fileID: 5374612252810892885}
   - component: {fileID: 5711485097010564901}
   - component: {fileID: 7495480860659550767}
@@ -566,25 +562,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2983133692202641330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4181546505998573036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac7938b6a47ce8b43aab4123cd30ba81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 20
-  indicatorOffset: 1
-  indicatorPressedOffset: 0.85
-  maxTetherDistance: 100
-  connectSound: {fileID: 5374612252810892885}
-  releaseSound: {fileID: 5711485097010564901}
-  points: 0
 --- !u!54 &6806339682910963405
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -601,6 +578,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 1
+--- !u!114 &1252246655785240812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4181546505998573036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f461ce70651150446a33973b2b4b70cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TranslationSpeed: 5
+  m_UpRightRotKLerp: 2
+  m_JumpPower: 5
 --- !u!82 &5374612252810892885
 AudioSource:
   m_ObjectHideFlags: 0

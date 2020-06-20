@@ -16,6 +16,19 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        canJump = false;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     public bool isGrounded()
@@ -25,16 +38,17 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if (!GameManager.Instance.IsPlaying) return;
+        Debug.Log("play");
 
         //recuperation de l'imput lier a l'axes horizontal
         float hInput = Input.GetAxis("Horizontal");
 
         Vector3 translationVect = hInput * transform.forward * m_TranslationSpeed * Time.fixedDeltaTime;
 
-        if (Input.GetKey("Space") && isGrounded())
+        if (Input.GetKey("up") && isGrounded())
         {
-            //translationVect.y = m_JumpSpeed * Time.fixedDeltaTime;
             m_Rigidbody.AddForce(new Vector3(0, m_JumpPower, 0), ForceMode.Impulse);
         }
 
@@ -46,17 +60,33 @@ public class Player : MonoBehaviour
         Quaternion qUpright = Quaternion.FromToRotation(transform.up, Vector3.up);
         Quaternion qNextOrientation = Quaternion.Lerp(transform.rotation, qUpright * transform.rotation, m_UpRightRotKLerp * Time.fixedDeltaTime);
         m_Rigidbody.MoveRotation(qNextOrientation);
+        
+
+        
+
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Ground>()) canJump = true;
+
+        // TODO A CHANGER 
+        CubeBehaviour cube = collision.collider.GetComponent<CubeBehaviour>();
+        if (cube)
+        {
+            foreach (ContactPoint point in collision.contacts)
+            {
+                Debug.Log(point.normal);
+                if (point.normal.y <= -0.9f)
+                {
+                    cube.Destruction(gameObject);
+                }
+            }
+        }
+    }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject && !collision.gameObject.name.Contains("Enemy"))
-        {
-            canJump = false;
-
-        }
-
-
+        if (collision.gameObject.GetComponent<Ground>()) canJump = false;
     }
 }

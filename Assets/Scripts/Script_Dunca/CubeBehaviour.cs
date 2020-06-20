@@ -22,8 +22,8 @@ public class CubeBehaviour : MonoBehaviour
     {
         if (!CubeState)
         {
-            PlayerScript script = Player.GetComponent<PlayerScript>();
-            script.points++;
+            Player script = Player.GetComponent<Player>();
+            //script.points++; // changer pour des events
             CubeState = true;
             if (isBreakable)
             {
