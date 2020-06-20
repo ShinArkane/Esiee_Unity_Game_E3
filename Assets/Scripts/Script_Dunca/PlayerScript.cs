@@ -9,14 +9,16 @@ public class PlayerScript : MonoBehaviour
     #region Variables
     // Main variables for physics handling
     private Rigidbody rb;
-
+    public bool InvertAxes = false;
     public float moveSpeed;
     bool canJump = false;
-    [SerializeField] float m_JumpSpeed;
-
+    [SerializeField] public float m_JumpSpeed;
+    float timeLeftInvert = 5f;
     dg_simpleCamFollow1 followScript;
-
-
+    public float timeLeftSpeed = -1;
+    public float timeLeftJump = -1;
+    float initiateMoveSpeed;
+    float initiate_m_JumpSpeed;
     // Misc.
     private LineRenderer lr;
 
@@ -30,8 +32,8 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = Vector3.zero;
         rb.inertiaTensorRotation = Quaternion.identity;
-        
-
+        initiateMoveSpeed = moveSpeed;
+        initiate_m_JumpSpeed = m_JumpSpeed;
         //Camera 
         followScript = Camera.main.GetComponent<dg_simpleCamFollow1>();
         SetPreset(1);
@@ -46,13 +48,37 @@ public class PlayerScript : MonoBehaviour
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
+        Vector3 movement;
+        timeLeftInvert -= Time.deltaTime;
+        timeLeftSpeed -= Time.deltaTime;
+        timeLeftJump -= Time.deltaTime;
+        if (timeLeftInvert < 0)
+        {
+            InvertAxes = false;
+            timeLeftInvert = 20f;
+        }
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        if (timeLeftSpeed<0)
+        {
+            moveSpeed = initiateMoveSpeed;
+        }
+        if (timeLeftJump < 0)
+        {
+            m_JumpSpeed = initiate_m_JumpSpeed;
+        }
+        if (!InvertAxes)
+        {
+             movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        }
+        else
+        {
+             movement = new Vector3(moveVertical, 0.0f, moveHorizontal);
+
+        }
 
         rb.AddForce(movement * moveSpeed);
         if ((Input.GetKeyDown(KeyCode.Space))&& isGrounded())
         {
-            Debug.Log("Jump");
             rb.AddForce(new Vector3(0, m_JumpSpeed, 0), ForceMode.Impulse);
         }
 
@@ -63,7 +89,7 @@ public class PlayerScript : MonoBehaviour
 
         if (collision.gameObject && !collision.gameObject.name.Contains("Enemy"))
         {
-            Debug.Log(collision.gameObject);
+            //Debug.Log(collision.gameObject);
             canJump = true;
 
         }
@@ -90,7 +116,7 @@ public class PlayerScript : MonoBehaviour
         {
             foreach (ContactPoint point in collision.contacts)
             {
-                Debug.Log(point.normal);
+                //Debug.Log(point.normal);
                 if (point.normal.y <= -0.9f)
                 {
                     cube.Destruction(gameObject);
@@ -129,7 +155,7 @@ public class PlayerScript : MonoBehaviour
 
     public bool isGrounded()
     {
-        Debug.Log(canJump);
+        //Debug.Log(canJump);
         return canJump;
     }
     private void OnGUI()
