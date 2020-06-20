@@ -6,8 +6,9 @@
 	using System.Collections.Generic;
 	using SDD.Events;
 	using System.Linq;
+    using System;
 
-	public enum GameState { gameMenu, gamePlay, gameNextLevel, gamePause, gameOver, gameVictory }
+    public enum GameState { gameMenu, gamePlay, gameNextLevel, gamePause, gameOver, gameVictory }
 
 	public class GameManager : Manager<GameManager>
 	{
@@ -89,6 +90,8 @@
 			EventManager.Instance.AddListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
 			EventManager.Instance.AddListener<QuitButtonClickedEvent>(QuitButtonClicked);
 
+			EventManager.Instance.AddListener<PlayLevel1ButtonClickedEvent>(PlayLevel1ButtonClicked);
+
 			//Score Item
 			EventManager.Instance.AddListener<ScoreItemEvent>(ScoreHasBeenGained);
 		}
@@ -103,6 +106,8 @@
 			EventManager.Instance.RemoveListener<ResumeButtonClickedEvent>(ResumeButtonClicked);
 			EventManager.Instance.RemoveListener<EscapeButtonClickedEvent>(EscapeButtonClicked);
 			EventManager.Instance.RemoveListener<QuitButtonClickedEvent>(QuitButtonClicked);
+
+			EventManager.Instance.RemoveListener<PlayLevel1ButtonClickedEvent>(PlayLevel1ButtonClicked);
 
 			//Score Item
 			EventManager.Instance.RemoveListener<ScoreItemEvent>(ScoreHasBeenGained);
@@ -135,7 +140,11 @@
 		#endregion
 
 		#region Callbacks to Events issued by MenuManager
-		private void MainMenuButtonClicked(MainMenuButtonClickedEvent e)
+		private void PlayLevel1ButtonClicked(PlayLevel1ButtonClickedEvent e) {
+			launchLevel1();
+		}
+
+        private void MainMenuButtonClicked(MainMenuButtonClickedEvent e)
 		{
 			Menu();
 		}
@@ -180,6 +189,17 @@
 			EventManager.Instance.Raise(new GamePlayEvent());
 		}
 
+		private void launchLevel1()
+		{
+			// poser le joueur sur le level 1
+			InitNewGame();
+			SetTimeScale(1);
+			m_GameState = GameState.gamePlay;
+			if (MusicLoopsManager.Instance) MusicLoopsManager.Instance.PlayMusic(Constants.GAMEPLAY_MUSIC);
+			EventManager.Instance.Raise(new LaunchLevel1Event());
+			EventManager.Instance.Raise(new GamePlayEvent());
+		}
+
 		private void Pause()
 		{
 			if (!IsPlaying) return;
@@ -206,6 +226,7 @@
 			if(SfxManager.Instance) SfxManager.Instance.PlaySfx2D(Constants.GAMEOVER_SFX);
 		}
 		#endregion
+
 	}
 }
 

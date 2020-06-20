@@ -16,8 +16,9 @@ public class CoinScript : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.IsPlaying) return;
-        transform.Rotate(0,0,90 * Time.deltaTime);
+        transform.Rotate(new Vector3(0,20,0) * Time.deltaTime);
     }
+    /*
     private void OnTriggerEnter(Collider other)
     {
         PlayerScript script = other.GetComponentInParent<PlayerScript>();
@@ -35,4 +36,5 @@ public class CoinScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    */
 }

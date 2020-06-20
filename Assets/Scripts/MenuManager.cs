@@ -83,6 +83,11 @@ namespace STUDENT_NAME
 			EventManager.Instance.Raise(new PlayButtonClickedEvent());
 		}
 
+		public void PlayLevel1ButtonHasBeenClicked()
+		{
+			EventManager.Instance.Raise(new PlayLevel1ButtonClickedEvent());
+		}
+
 		public void ResumeButtonHasBeenClicked()
 		{
 			EventManager.Instance.Raise(new ResumeButtonClickedEvent());
@@ -125,6 +130,11 @@ namespace STUDENT_NAME
 		{
 			OpenPanel(m_PanelGameOver);
 		}
+
+		protected void LaunchLevel1(LaunchLevel1Event e)
+        {
+			OpenPanel(null);
+        }
 		#endregion
 	}
 
