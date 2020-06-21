@@ -7152,10 +7152,25 @@ PrefabInstance:
       propertyPath: m_detectionScalaire
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4042233066931588734, guid: e599a17cf74c98642815a7cb2695f20f,
+        type: 3}
+      propertyPath: m_UpRightRotKLerp
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4042233066931588735, guid: e599a17cf74c98642815a7cb2695f20f,
         type: 3}
       propertyPath: m_Name
       value: Enemie patrouille -  terrain tuto enemy pat 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042233066931588735, guid: e599a17cf74c98642815a7cb2695f20f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042233067414415419, guid: e599a17cf74c98642815a7cb2695f20f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e599a17cf74c98642815a7cb2695f20f, type: 3}

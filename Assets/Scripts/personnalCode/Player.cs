@@ -55,6 +55,14 @@ public class Player : MonoBehaviour
         if (invincibilityCounter > 0) 
         {
             invincibilityCounter -= Time.fixedDeltaTime;
+            if(invincibilityCounter<= 0)
+            {
+                gameObject.layer = 0;
+            }
+            else
+            {
+                gameObject.layer = 8;
+            }
         }
 
         if (isDiggingDownward)
