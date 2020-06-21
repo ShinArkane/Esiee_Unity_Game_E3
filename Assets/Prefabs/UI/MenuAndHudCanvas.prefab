@@ -2274,7 +2274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -177, y: 86}
+  m_AnchoredPosition: {x: -2, y: -448}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3674566115669666443
@@ -2303,8 +2303,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA9 Cyril Lagel\xE9e - Duncan Labrousse - Yannis Amirat - Wassim Ben
-    Tanfous"
+  m_text: "\xA9 Cyril Lagel\xE9e (Game Designer / Producer)\nDuncan Labrousse (Game
+    Designer / Developer)\nYannis Amirat (Developper / Sound Designer)\nWassim Ben
+    Tanfous (Graphic Designer / Developer )"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2349,7 +2350,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 132
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -2370,15 +2371,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -350.56934, w: 0}
+  m_margin: {x: 0, y: -36.64453, z: -84.32617, w: 0}
   m_textInfo:
     textComponent: {fileID: 85763564920072079}
-    characterCount: 71
+    characterCount: 182
     spriteCount: 0
-    spaceCount: 12
-    wordCount: 13
+    spaceCount: 26
+    wordCount: 22
     linkCount: 0
-    lineCount: 1
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -3206,14 +3207,14 @@ RectTransform:
   m_GameObject: {fileID: 8309758354358069739}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.3798, y: 1.7191, z: 1}
+  m_LocalScale: {x: 8.135333, y: 2.2394717, z: 1}
   m_Children: []
   m_Father: {fileID: 4135742491662371310}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: 226}
+  m_AnchoredPosition: {x: 1, y: 247}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7083831891767261569
