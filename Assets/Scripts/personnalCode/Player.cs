@@ -12,14 +12,22 @@ public class Player : MonoBehaviour
     [SerializeField] private float m_UpRightRotKLerp; // maintenir debut
     [SerializeField] private float m_JumpPower; // force de saut
 
+    [Header("Invincibilite")]
+    [SerializeField] private float flashTime;
+    [SerializeField] private float flashCounter;
+    [SerializeField] private float invincibilityTime;
+    [SerializeField] private float invincibilityCounter;
+    [SerializeField] MeshRenderer m_meshRendererCorps;
+    [SerializeField] MeshRenderer m_meshRendererNez;
+
     [Header("Read Only Player State")]
     [SerializeField] private bool canJump = false;
     [SerializeField] private bool canDig = false; //peu traverser le sol/tuyaux
     [SerializeField] private bool isDiggingDownward = false; //etat bloquant de chute
     
-    [SerializeField] private float invincibilityTime;
-    [SerializeField] private float invincibilityCounter;
-
+    
+    
+    
 
     Rigidbody m_Rigidbody;
     
@@ -55,6 +63,7 @@ public class Player : MonoBehaviour
         if (invincibilityCounter > 0) 
         {
             invincibilityCounter -= Time.fixedDeltaTime;
+            
             if(invincibilityCounter<= 0)
             {
                 gameObject.layer = 0;
@@ -63,6 +72,20 @@ public class Player : MonoBehaviour
             {
                 gameObject.layer = 8;
             }
+
+            flashCounter -= Time.fixedDeltaTime;
+            if (flashCounter <= 0)
+            {
+                m_meshRendererCorps.enabled = !m_meshRendererCorps.enabled;
+                m_meshRendererNez.enabled = !m_meshRendererNez.enabled;
+                flashCounter = flashTime;
+            }
+            if (invincibilityCounter <= 0)
+            {
+                m_meshRendererCorps.enabled = true;
+                m_meshRendererNez.enabled = true;
+            }
+                
         }
 
         if (isDiggingDownward)
@@ -178,6 +201,9 @@ public class Player : MonoBehaviour
             else
             {
                 invincibilityCounter = invincibilityTime;
+                m_meshRendererCorps.enabled = false;
+                m_meshRendererNez.enabled = false;
+                flashCounter = flashTime;
             }
         }
         
