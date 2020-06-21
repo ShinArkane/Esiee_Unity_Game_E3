@@ -16,8 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] private bool canJump = false;
     [SerializeField] private bool canDig = false; //peu traverser le sol/tuyaux
     [SerializeField] private bool isDiggingDownward = false; //etat bloquant de chute
-    [SerializeField] private bool invincible = false;
-    [SerializeField] private float invincibilityTime = 3f;
+    
+    [SerializeField] private float invincibilityTime;
+    [SerializeField] private float invincibilityCounter;
 
 
     Rigidbody m_Rigidbody;
@@ -50,6 +51,11 @@ public class Player : MonoBehaviour
         Vector3 translationVect;
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
+
+        if (invincibilityCounter > 0) 
+        {
+            invincibilityCounter -= Time.fixedDeltaTime;
+        }
 
         if (isDiggingDownward)
         {
@@ -125,11 +131,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    if (! invincible )
-                    {
-                        ApplyDommage();
-                    }  
-                    
+                    ApplyDommage();
                 }
             }
         }
@@ -157,23 +159,21 @@ public class Player : MonoBehaviour
 
     public void ApplyDommage()
     {
-        EventManager.Instance.Raise(new LifeEvent() {eLife = 1 });
-        if (GameManager.Instance.NLives <= 0)
+        if(invincibilityCounter <= 0)
         {
-            Destroy(gameObject);
-            EventManager.Instance.Raise(new GameOverEvent());
-        }
-        else {
-            StartCoroutine(Invulnerability());
+            EventManager.Instance.Raise(new LifeEvent() { eLife = 1 });
+            if (GameManager.Instance.NLives <= 0)
+            {
+                Destroy(gameObject);
+                EventManager.Instance.Raise(new GameOverEvent());
+            }
+            else
+            {
+                invincibilityCounter = invincibilityTime;
+            }
         }
         
-    }
-
-    IEnumerator Invulnerability()
-    {
-        invincible = true;
-        yield return new WaitForSeconds(invincibilityTime);
-        invincible = false;
+        
     }
 
 }
