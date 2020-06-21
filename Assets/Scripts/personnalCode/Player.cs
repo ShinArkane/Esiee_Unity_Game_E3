@@ -158,6 +158,7 @@ public class Player : MonoBehaviour
             {
                 if (point.normal.y >= 0.6f)
                 {
+                    Debug.Log("Dommage ennemy");
                     enemy.ApplyDommage();
                 }
                 else
@@ -195,6 +196,7 @@ public class Player : MonoBehaviour
             EventManager.Instance.Raise(new LifeEvent() { eLife = 1 });
             if (GameManager.Instance.NLives <= 0)
             {
+
                 Destroy(gameObject);
                 EventManager.Instance.Raise(new GameOverEvent());
             }

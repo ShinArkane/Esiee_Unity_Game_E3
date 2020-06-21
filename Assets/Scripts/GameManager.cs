@@ -298,6 +298,7 @@
 		private void Victory()
 		{
 			m_GameState = GameState.gameVictory;
+			if (SfxManager.Instance) SfxManager.Instance.PlaySfx2D(Constants.GAMEVICTORY_SFX);
 		}
 		#endregion
 

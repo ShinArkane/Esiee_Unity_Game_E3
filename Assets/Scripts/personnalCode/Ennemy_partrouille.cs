@@ -92,6 +92,7 @@ public class Ennemy_partrouille : MonoBehaviour
 
     public void ApplyDommage() {
         EventManager.Instance.Raise(new ScoreEnemyEvent() { eScore= scoreIncrementation});
+        if(SfxManager.Instance) SfxManager.Instance.PlaySfx2D(Constants.Hit_Body_Break);
         Destroy(this.gameObject);
     }
 }
