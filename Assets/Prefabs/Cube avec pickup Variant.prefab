@@ -70,13 +70,23 @@ PrefabInstance:
     - target: {fileID: 8061522703601671759, guid: feaf9bd47be144445b3ce97d89849e07,
         type: 3}
       propertyPath: m_Name
-      value: Cube avec pickup
+      value: Cube avec pickup Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8061522703601671796, guid: feaf9bd47be144445b3ce97d89849e07,
         type: 3}
       propertyPath: myPrefab
       value: 
-      objectReference: {fileID: 7596859082947636272, guid: 0604b504dcbe6824a8bc90d575eae839,
+      objectReference: {fileID: 4657053507508581031, guid: 052e4dc2ce62a5f4993b598f2a6cfc20,
         type: 3}
+    - target: {fileID: 8061522703601671796, guid: feaf9bd47be144445b3ce97d89849e07,
+        type: 3}
+      propertyPath: isBreakable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061522703601671796, guid: feaf9bd47be144445b3ce97d89849e07,
+        type: 3}
+      propertyPath: HasItem
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feaf9bd47be144445b3ce97d89849e07, type: 3}

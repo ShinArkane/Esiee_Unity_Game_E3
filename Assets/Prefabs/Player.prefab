@@ -236,7 +236,7 @@ MonoBehaviour:
   m_TranslationSpeed: 10
   m_DiggingSpeed: 20
   m_UpRightRotKLerp: 2
-  m_JumpPower: 90
+  m_JumpPower: 85
   flashTime: 0.1
   flashCounter: 0
   invincibilityTime: 1.5
