@@ -88,7 +88,7 @@ public class SfxManager : Singleton<SfxManager> {
 	{
 		if(FlagsManager.Instance && !FlagsManager.Instance.GetFlag("SETTINGS_SFX",true))
 			return;
-
+		Debug.Log("SFX?:" + sfxName);
 		MyAudioClip audioClip;
 		if(!m_DicoAudioClips.TryGetValue(sfxName,out audioClip))
 		{

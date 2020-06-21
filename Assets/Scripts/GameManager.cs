@@ -244,6 +244,7 @@
 		{
 			SetTimeScale(1);
 			m_GameState = GameState.gameMenu;
+			
 			if(MusicLoopsManager.Instance)MusicLoopsManager.Instance.PlayMusic(Constants.MENU_MUSIC);
 			EventManager.Instance.Raise(new GameMenuEvent());
 		}
@@ -261,6 +262,7 @@
 		private void launchLevel1()
 		{
 			// poser le joueur sur le level 1
+			InitCoroutine();
 			InitNewGame();
 			SetTimeScale(1);
 			m_GameState = GameState.gamePlay;
