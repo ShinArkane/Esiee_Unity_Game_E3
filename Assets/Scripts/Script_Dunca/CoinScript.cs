@@ -1,11 +1,12 @@
-﻿using STUDENT_NAME;
+﻿using SDD.Events;
+using STUDENT_NAME;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinScript : MonoBehaviour
 {
-    bool isUse = false;
+    [SerializeField] int scoreIncrementation;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,23 +19,16 @@ public class CoinScript : MonoBehaviour
         if (!GameManager.Instance.IsPlaying) return;
         transform.Rotate(new Vector3(0,20,0) * Time.deltaTime);
     }
-    /*
+  
     private void OnTriggerEnter(Collider other)
     {
-        PlayerScript script = other.GetComponentInParent<PlayerScript>();
-        Debug.Log("Collision");
+        Player player = other.GetComponent<Player>();
 
-        if (script.name == "Player")
+        if (player != null)
         {
-            //other.GetComponent<PlayerScript>().points++;
-            // Add 1 to points
-            if (!isUse)
-            {
-                script.points++;
-                isUse = true;
-            }
+            EventManager.Instance.Raise(new ScoreItemEvent() { eScore = scoreIncrementation });
             Destroy(gameObject);
         }
     }
-    */
+    
 }

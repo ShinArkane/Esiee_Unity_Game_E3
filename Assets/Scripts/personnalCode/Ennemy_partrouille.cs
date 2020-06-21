@@ -1,4 +1,5 @@
-﻿using STUDENT_NAME;
+﻿using SDD.Events;
+using STUDENT_NAME;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class Ennemy_partrouille : MonoBehaviour
     [SerializeField] private float m_UpRightRotKLerp;
     [SerializeField] private float m_detectionScalaire;
 
+    [SerializeField] int scoreIncrementation;
+
     [Header("Read Only")]
     [SerializeField] private bool usePlayerDetected;
 
@@ -24,10 +27,11 @@ public class Ennemy_partrouille : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        usePlayerDetected = false;
     }
     void Start()
     {
-
+        
     }
 
 
@@ -51,22 +55,13 @@ public class Ennemy_partrouille : MonoBehaviour
         m_Rigidbody.MoveRotation(qNextOrientation);
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-         //TODO collision joueur  
-    }
-
     private void SelectSpeed()
     {
-        
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward * m_detectionScalaire);
         int layerMask = LayerMask.GetMask("Default");
         if (Physics.Raycast(ray, out hit,m_detectionScalaire,layerMask,QueryTriggerInteraction.Ignore))
         {
-            Debug.Log("gameogbject =" + hit.transform.name);
-            Debug.Log("gameogbject =" + (hit.transform.GetComponent<Player>() != null) );
-
             if ( hit.transform.gameObject.GetComponent<Player>() )
             {
                 usePlayerDetected = true;
@@ -95,4 +90,8 @@ public class Ennemy_partrouille : MonoBehaviour
         }
     }
 
+    public void ApplyDommage() {
+        EventManager.Instance.Raise(new ScoreEnemyEvent() { eScore= scoreIncrementation});
+        Destroy(this.gameObject);
+    }
 }

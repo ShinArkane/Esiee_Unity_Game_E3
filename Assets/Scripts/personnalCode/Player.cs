@@ -1,4 +1,5 @@
-﻿using STUDENT_NAME;
+﻿using SDD.Events;
+using STUDENT_NAME;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,18 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Tooltip("Vitesse de translation en m.s^-1")]
-    [SerializeField] float m_TranslationSpeed;
-    [SerializeField] float m_UpRightRotKLerp; // maintenir debut
-    [SerializeField] float m_JumpPower; // force de saut
+    [SerializeField] private float m_TranslationSpeed;
+    [SerializeField] private float m_DiggingSpeed; //vitesse passage tuyaux
+    [SerializeField] private float m_UpRightRotKLerp; // maintenir debut
+    [SerializeField] private float m_JumpPower; // force de saut
 
-    [SerializeField] bool canJump = false;
+    [Header("Read Only Player State")]
+    [SerializeField] private bool canJump = false;
+    [SerializeField] private bool canDig = false; //peu traverser le sol/tuyaux
+    [SerializeField] private bool isDiggingDownward = false; //etat bloquant de chute
+    [SerializeField] private bool invincible = false;
+    [SerializeField] private float invincibilityTime = 3f;
+
 
     Rigidbody m_Rigidbody;
     
@@ -19,6 +27,8 @@ public class Player : MonoBehaviour
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         canJump = false;
+        canDig = false;
+        isDiggingDownward = false;
     }
 
     // Start is called before the first frame update
@@ -33,51 +43,67 @@ public class Player : MonoBehaviour
 
     }
 
-    public bool isGrounded()
-    {
-        return canJump;
-    }
-
     private void FixedUpdate()
     {
         
         if (!GameManager.Instance.IsPlaying) return;
-
-        //recuperation de l'imput lier a l'axes horizontal
+        Vector3 translationVect;
         float hInput = Input.GetAxis("Horizontal");
+        float vInput = Input.GetAxis("Vertical");
 
-        Vector3 translationVect = hInput * transform.forward * m_TranslationSpeed * Time.fixedDeltaTime;
-
-        if (Input.GetAxis("Jump") != 0 && isGrounded())
+        if (isDiggingDownward)
         {
-            m_Rigidbody.AddForce(new Vector3(0, m_JumpPower, 0), ForceMode.Impulse);
+            translationVect = -transform.up * m_DiggingSpeed * Time.fixedDeltaTime;
+
+        }
+        else { 
+            //recuperation de l'imput lier a l'axes horizontal
+            
+
+            translationVect = hInput * transform.forward * m_TranslationSpeed * Time.fixedDeltaTime;
+
+            if (Input.GetAxis("Jump") != 0 && canJump)
+            {
+                m_Rigidbody.AddForce(new Vector3(0, m_JumpPower, 0), ForceMode.Impulse);
+            }
+
         }
 
         m_Rigidbody.MovePosition(transform.position + translationVect);
-
-
 
         // rester debout
         Quaternion qUpright = Quaternion.FromToRotation(transform.up, Vector3.up);
         Quaternion qNextOrientation = Quaternion.Lerp(transform.rotation, qUpright * transform.rotation, m_UpRightRotKLerp * Time.fixedDeltaTime);
         m_Rigidbody.MoveRotation(qNextOrientation);
-        
 
-        
+
+        if (vInput < 0 && canDig)
+        {
+            isDiggingDownward = true;
+            canJump = false;
+            canDig = false;
+        }
 
     }
 
+
     private void OnCollisionStay(Collision collision)
     {
+        if (collision.gameObject.GetComponent<Tuyaux>() && !isDiggingDownward) canDig = true;
+        if (collision.gameObject.GetComponent<Tuyaux>() && isDiggingDownward) collision.collider.isTrigger = true;
         if (collision.gameObject.GetComponent<Ground>()) canJump = true;
+        
     }
 
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        // TODO A CHANGER 
+        Ennemy_partrouille enemy = collision.collider.GetComponent<Ennemy_partrouille>();
         CubeBehaviour cube = collision.collider.GetComponent<CubeBehaviour>();
+        Tuyaux tuyaux = collision.collider.GetComponent<Tuyaux>();
+        Ground ground = collision.collider.GetComponent<Ground>();
+        if ((ground || tuyaux) && isDiggingDownward) collision.collider.isTrigger = true;
         if (cube)
         {
             foreach (ContactPoint point in collision.contacts)
@@ -89,10 +115,65 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        if (enemy)
+        {
+            foreach (ContactPoint point in collision.contacts)
+            {
+                if (point.normal.y >= 0.6f)
+                {
+                    enemy.ApplyDommage();
+                }
+                else
+                {
+                    if (! invincible )
+                    {
+                        ApplyDommage();
+                    }  
+                    
+                }
+            }
+        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.GetComponent<Ground>()) canJump = false;
+        if (collision.gameObject.GetComponent<Tuyaux>() && !isDiggingDownward) canDig = false;
+        if (collision.gameObject.GetComponent<Ennemy_partrouille>()) canJump = false;
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Tuyaux>()) {
+            other.isTrigger = false;
+            isDiggingDownward = false;
+        }
+        if (other.gameObject.GetComponent<Ground>() && isDiggingDownward)
+        {
+            other.isTrigger = false;
+        }
+        
+    }
+
+    public void ApplyDommage()
+    {
+        EventManager.Instance.Raise(new LifeEvent() {eLife = 1 });
+        if (GameManager.Instance.NLives <= 0)
+        {
+            Destroy(gameObject);
+            EventManager.Instance.Raise(new GameOverEvent());
+        }
+        else {
+            StartCoroutine(Invulnerability());
+        }
+        
+    }
+
+    IEnumerator Invulnerability()
+    {
+        invincible = true;
+        yield return new WaitForSeconds(invincibilityTime);
+        invincible = false;
+    }
+
 }

@@ -33,13 +33,14 @@
 		void SetNLives(int nLives)
 		{
 			m_NLives = nLives;
-			EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eBestScore = BestScore, eScore = m_Score, eNLives = m_NLives});
+			EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eBestScore = BestScore, eBestEnemyScore = BestEnemyScore, eScore = m_Score, eEnemyScore = m_EnemyScore, eNLives = m_NLives });
 		}
 		#endregion
 
 
 		#region Score
 		private float m_Score;
+		private float m_EnemyScore;
 		public float Score
 		{
 			get { return m_Score; }
@@ -50,10 +51,26 @@
 			}
 		}
 
+		public float EnemyScore
+		{
+			get { return m_EnemyScore; }
+			set
+			{
+				m_EnemyScore = value;
+				BestEnemyScore = Mathf.Max(BestEnemyScore, value);
+			}
+		}
+
 		public float BestScore
 		{
 			get { return PlayerPrefs.GetFloat("BEST_SCORE", 0); }
 			set { PlayerPrefs.SetFloat("BEST_SCORE", value); }
+		}
+
+		public float BestEnemyScore
+		{
+			get { return PlayerPrefs.GetFloat("BEST_SCORE_ENEMY", 0); }
+			set { PlayerPrefs.SetFloat("BEST_SCORE_ENEMY", value); }
 		}
 
 		void IncrementScore(float increment)
@@ -66,7 +83,20 @@
 			Score = score;
 
 			if (raiseEvent)
-				EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eBestScore = BestScore, eScore = m_Score, eNLives = m_NLives });
+				EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eBestScore = BestScore, eBestEnemyScore = BestEnemyScore, eScore = m_Score, eEnemyScore = m_EnemyScore, eNLives = m_NLives });
+		}
+
+		private void IncrementEnemyScore(float increment)
+		{
+			SetEnemyScore(m_EnemyScore + increment);
+		}
+
+		private void SetEnemyScore(float enemyScore, bool raiseEvent = true)
+        {
+			EnemyScore = enemyScore;
+
+			if (raiseEvent)
+				EventManager.Instance.Raise(new GameStatisticsChangedEvent() { eBestScore = BestScore, eBestEnemyScore = BestEnemyScore, eScore = m_Score, eEnemyScore = m_EnemyScore, eNLives = m_NLives });
 		}
 		#endregion
 
@@ -82,6 +112,9 @@
 		public override void SubscribeEvents()
 		{
 			base.SubscribeEvents();
+
+			//GameEvent
+			EventManager.Instance.AddListener<GameVictoryEvent>(LevelHasBeenWin);
 			
 			//MainMenuManager
 			EventManager.Instance.AddListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
@@ -92,13 +125,21 @@
 
 			EventManager.Instance.AddListener<PlayLevel1ButtonClickedEvent>(PlayLevel1ButtonClicked);
 
-			//Score Item
+			//Score
 			EventManager.Instance.AddListener<ScoreItemEvent>(ScoreHasBeenGained);
+			EventManager.Instance.AddListener<ScoreEnemyEvent>(EnemyScoreHasBeenGained);
+
+			//Life
+			EventManager.Instance.AddListener<LifeEvent>(LifeHasBeenModified);
 		}
 
-		public override void UnsubscribeEvents()
+        
+
+        public override void UnsubscribeEvents()
 		{
 			base.UnsubscribeEvents();
+
+			EventManager.Instance.RemoveListener<GameVictoryEvent>(LevelHasBeenWin);
 
 			//MainMenuManager
 			EventManager.Instance.RemoveListener<MainMenuButtonClickedEvent>(MainMenuButtonClicked);
@@ -109,13 +150,17 @@
 
 			EventManager.Instance.RemoveListener<PlayLevel1ButtonClickedEvent>(PlayLevel1ButtonClicked);
 
-			//Score Item
+			//Score
 			EventManager.Instance.RemoveListener<ScoreItemEvent>(ScoreHasBeenGained);
-		}
-		#endregion
+			EventManager.Instance.RemoveListener<ScoreEnemyEvent>(EnemyScoreHasBeenGained);
 
-		#region Manager implementation
-		protected override IEnumerator InitCoroutine()
+			//Life
+			EventManager.Instance.RemoveListener<LifeEvent>(LifeHasBeenModified);
+		}
+        #endregion
+
+        #region Manager implementation
+        protected override IEnumerator InitCoroutine()
 		{
 			Menu();
 			InitNewGame(); // essentiellement pour que les statistiques du jeu soient mise à jour en HUD
@@ -127,7 +172,20 @@
 		//Game initialization
 		void InitNewGame(bool raiseStatsEvent = true)
 		{
+			SetNLives(5);
 			SetScore(0);
+			SetEnemyScore(0);
+		}
+
+
+		private void LifeHasBeenModified(LifeEvent e)
+		{
+			DecrementNLives(e.eLife);
+		}
+
+		private void LevelHasBeenWin(GameVictoryEvent e)
+		{
+			Victory();
 		}
 		#endregion
 
@@ -137,7 +195,18 @@
 			if (IsPlaying)
 				IncrementScore(e.eScore);
 		}
+
+		private void EnemyScoreHasBeenGained(ScoreEnemyEvent e)
+		{
+			if (IsPlaying)
+
+				IncrementEnemyScore(e.eScore);
+		}
 		#endregion
+
+
+
+
 
 		#region Callbacks to Events issued by MenuManager
 		private void PlayLevel1ButtonClicked(PlayLevel1ButtonClickedEvent e) {
@@ -224,6 +293,11 @@
 			m_GameState = GameState.gameOver;
 			EventManager.Instance.Raise(new GameOverEvent());
 			if(SfxManager.Instance) SfxManager.Instance.PlaySfx2D(Constants.GAMEOVER_SFX);
+		}
+
+		private void Victory()
+		{
+			m_GameState = GameState.gameVictory;
 		}
 		#endregion
 

@@ -50,6 +50,9 @@ MonoBehaviour:
   m_PlayerDetectedSpeed: 7
   m_RotationSpeed: 5
   m_UpRightRotKLerp: 2
+  m_detectionScalaire: 10
+  scoreIncrementation: 1
+  usePlayerDetected: 0
 --- !u!135 &4042233066931588733
 SphereCollider:
   m_ObjectHideFlags: 0
