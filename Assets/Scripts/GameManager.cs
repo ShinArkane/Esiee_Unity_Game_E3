@@ -271,7 +271,6 @@
 
 		private void launchLevel1()
 		{
-<<<<<<< Updated upstream
 			// poser le joueur sur le level 1
 			InitCoroutine();
 			InitNewGame();
@@ -280,9 +279,8 @@
 			if (MusicLoopsManager.Instance) MusicLoopsManager.Instance.PlayMusic(Constants.GAMEPLAY_MUSIC);
 			EventManager.Instance.Raise(new LaunchLevel1Event());
 			EventManager.Instance.Raise(new GamePlayEvent());
-=======
 			Play();
->>>>>>> Stashed changes
+
 		}
 
 		private void Pause()
