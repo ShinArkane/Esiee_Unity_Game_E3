@@ -239,7 +239,7 @@ MonoBehaviour:
   m_JumpPower: 90
   flashTime: 0.1
   flashCounter: 0
-  invincibilityTime: 3
+  invincibilityTime: 1.5
   invincibilityCounter: 0
   m_meshRendererCorps: {fileID: 1918620588567834810}
   m_meshRendererNez: {fileID: 1918620589315563591}

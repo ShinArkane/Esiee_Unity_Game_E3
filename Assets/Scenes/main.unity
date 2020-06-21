@@ -2379,6 +2379,11 @@ PrefabInstance:
       propertyPath: m_NStartLives
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114029691621530082, guid: 68480a01e4a00ab45b3d746ae2fc86ee,
+        type: 3}
+      propertyPath: m_DoNotDestroyGameObjectOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114078314171263514, guid: 68480a01e4a00ab45b3d746ae2fc86ee,
         type: 3}
       propertyPath: m_PanelMainMenu
@@ -2399,6 +2404,11 @@ PrefabInstance:
       propertyPath: m_PanelVictory
       value: 
       objectReference: {fileID: 359538530}
+    - target: {fileID: 114186785974676832, guid: 68480a01e4a00ab45b3d746ae2fc86ee,
+        type: 3}
+      propertyPath: m_DoNotDestroyGameObjectOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114331011742233390, guid: 68480a01e4a00ab45b3d746ae2fc86ee,
         type: 3}
       propertyPath: m_ResourcesFolderName
@@ -2454,6 +2464,11 @@ PrefabInstance:
       propertyPath: Life
       value: 
       objectReference: {fileID: 1486936165}
+    - target: {fileID: 114721918857949744, guid: 68480a01e4a00ab45b3d746ae2fc86ee,
+        type: 3}
+      propertyPath: m_DoNotDestroyGameObjectOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114746243097493696, guid: 68480a01e4a00ab45b3d746ae2fc86ee,
         type: 3}
       propertyPath: m_Clips.Array.data[0]
@@ -2464,6 +2479,11 @@ PrefabInstance:
       propertyPath: m_Clips.Array.data[1]
       value: 
       objectReference: {fileID: 8300000, guid: 05660c28b1192cc4e9130ab58ab58b76, type: 3}
+    - target: {fileID: 114746243097493696, guid: 68480a01e4a00ab45b3d746ae2fc86ee,
+        type: 3}
+      propertyPath: m_ShowGui
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68480a01e4a00ab45b3d746ae2fc86ee, type: 3}
 --- !u!114 &955461319 stripped
@@ -5377,11 +5397,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3050939356114781431, guid: 2d4cc07e22d85374b8d15cd15f4e18e1,
         type: 3}
+<<<<<<< Updated upstream
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3050939356114781431, guid: 2d4cc07e22d85374b8d15cd15f4e18e1,
         type: 3}
+=======
+>>>>>>> Stashed changes
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 955461319}
@@ -5390,6 +5413,7 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: MainMenuButtonHasBeenClicked
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 3050939356114781431, guid: 2d4cc07e22d85374b8d15cd15f4e18e1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -5410,6 +5434,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
+=======
+>>>>>>> Stashed changes
     - target: {fileID: 4120937741347061999, guid: 2d4cc07e22d85374b8d15cd15f4e18e1,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

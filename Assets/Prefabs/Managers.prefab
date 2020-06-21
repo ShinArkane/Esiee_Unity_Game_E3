@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdfdc9c0beff1f4e991691b589cecd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DoNotDestroyGameObjectOnLoad: 0
+  m_DoNotDestroyGameObjectOnLoad: 1
   m_Clips:
   - {fileID: 8300000, guid: 18fc0e399ffc63641b8c4cb50030cd6c, type: 3}
   - {fileID: 8300000, guid: e1e1f0e6565b86a49adb64d0fd435684, type: 3}
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3121d566bf840db4aa8c22b8e7918163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DoNotDestroyGameObjectOnLoad: 0
+  m_DoNotDestroyGameObjectOnLoad: 1
 --- !u!1 &1400221982660032
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7ca549c593e47498a6696895393db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DoNotDestroyGameObjectOnLoad: 0
+  m_DoNotDestroyGameObjectOnLoad: 1
 --- !u!1 &1483211568883150
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc322b5b21cc9e94a8fb2486933498d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DoNotDestroyGameObjectOnLoad: 0
+  m_DoNotDestroyGameObjectOnLoad: 1
   m_SfxXmlSetup: {fileID: 4900000, guid: 269bde9d3087b6d49a68935f88a17011, type: 3}
   m_ResourcesFolderName: SFX
   m_NAudioSources: 2
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea6fd308a5a4c542951d22b314eed18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DoNotDestroyGameObjectOnLoad: 0
+  m_DoNotDestroyGameObjectOnLoad: 1
   labelLife: {fileID: 0}
   Life: {fileID: 0}
   labelScoreCoin: {fileID: 0}
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b782cb1d913b54ebf16df381d68102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DoNotDestroyGameObjectOnLoad: 0
+  m_DoNotDestroyGameObjectOnLoad: 1
   m_NStartLives: 5
 --- !u!1 &1696920944652120
 GameObject:
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96143cf0a2092c449abf9893a9a83b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DoNotDestroyGameObjectOnLoad: 0
+  m_DoNotDestroyGameObjectOnLoad: 1
   m_PanelMainMenu: {fileID: 0}
   m_PanelInGameMenu: {fileID: 0}
   m_PanelGameOver: {fileID: 0}
